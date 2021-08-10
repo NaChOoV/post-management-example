@@ -9,7 +9,7 @@ export const updatePost = (postList) => ({
 });
 
 export const addPost = (post) => ({
-  type: UPDATE_POST,
+  type: ADD_POST,
   payload: { data: post },
 });
 
@@ -24,13 +24,14 @@ export const getPost = () => {
   };
 };
 
-export const createPost = () => {
+export const createPost = (formValues) => {
   return async (dispatch) => {
     try {
-      const response = await postApi.post('post');
-      dispatch(updatePost(response.data));
+      const response = await postApi.post('post', formValues);
+      console.log(response.data);
+      dispatch(addPost(response.data));
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data);
     }
   };
 };
