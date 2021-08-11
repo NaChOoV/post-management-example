@@ -9,7 +9,9 @@ import store from './redux/store';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PostPage />
+      <div className="">
+        <PostPage />
+      </div>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

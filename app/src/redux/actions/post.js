@@ -2,6 +2,7 @@ import postApi from '../../config/axios';
 
 export const UPDATE_POST = 'UPDATE_POST';
 export const ADD_POST = 'ADD_POST';
+export const REMOVE_POST = 'REMOVE_POST';
 
 export const updatePost = (postList) => ({
   type: UPDATE_POST,
@@ -10,6 +11,11 @@ export const updatePost = (postList) => ({
 
 export const addPost = (post) => ({
   type: ADD_POST,
+  payload: { data: post },
+});
+
+export const removePost = (post) => ({
+  type: REMOVE_POST,
   payload: { data: post },
 });
 
@@ -28,10 +34,21 @@ export const createPost = (formValues) => {
   return async (dispatch) => {
     try {
       const response = await postApi.post('post', formValues);
-      console.log(response.data);
       dispatch(addPost(response.data));
     } catch (err) {
-      console.log(err.response.data);
+      console.error(err);
+    }
+  };
+};
+
+export const deletePost = (postId) => {
+  return async (dispatch) => {
+    try {
+      const response = await postApi.delete(`post/${postId}`);
+      console.log("post deleted",response.data);
+      dispatch(removePost(response.data));
+    } catch (err) {
+      console.error(err.response.data);
     }
   };
 };

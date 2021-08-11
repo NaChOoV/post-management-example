@@ -17,7 +17,7 @@ export default function PostPage() {
   }, [globalPost]);
 
   return (
-    <div className="h-full p-3 md:px-28 lg:px-56 xl:px-96 bg-gray-200">
+    <div className="h-screen md:px-28 lg:px-56 xl:px-96 bg-gray-200">
       <Table postList={postList} />
     </div>
   );

@@ -1,8 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { deletePost } from '../redux/actions/post';
 
 const PostRow = ({ post }) => {
+  const dispatch = useDispatch();
+
   const onClickHandler = () => {
-      console.log('delete post id',post.id)
+    console.log('delete post id', post.id);
+    dispatch(deletePost(post.id));
   };
 
   return (
