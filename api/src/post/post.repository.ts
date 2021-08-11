@@ -24,10 +24,14 @@ export class PostRepository extends Repository<Post> {
   }
 
   async deletePostById(postId: string): Promise<Post> {
-    const deletedPost = await this.findOne({ id: postId });
-    if (!deletedPost) {
-      return deletedPost;
+    const postToDelete = await this.findOne({ id: postId });
+    this.logger.log(`Deleting the post ${JSON.stringify(postToDelete)}`)
+
+    if (!postToDelete) {
+      return postToDelete;
     }
-    return await this.remove(deletedPost);
+    await this.delete(postId)
+
+    return postToDelete;
   }
 }
