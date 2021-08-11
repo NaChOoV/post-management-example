@@ -10,7 +10,7 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix('api');
 
-  const PORT: number = 5000;
+  const PORT = process.env.PORT || 5000;
   await app.listen(PORT);
 
   logger.log(`Application listening on port ${PORT}`);
