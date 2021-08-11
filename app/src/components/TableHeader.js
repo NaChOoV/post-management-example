@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreatePostModal from './CreatePostModal';
 
-export default function TableHeader() {
+export default function TableHeader({ onFilter }) {
   const [isCreating, setIsCreating] = useState(false);
+  const [filterValue, setFilterValue] = useState('');
+
+  useEffect(() => {
+    onFilter(filterValue);
+  }, [filterValue]);
 
   const onCreateHandler = () => setIsCreating(!isCreating);
   return (
@@ -13,21 +18,22 @@ export default function TableHeader() {
           <div className="flex flex-row bg-gray-100 p-4 space-x-2 rounded-lg">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 opacity-30"
+              className="h-6 opacity-30"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
               <path
                 className="line"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
             <input
               className="bg-gray-100 outline-none"
+              onChange={(e) => setFilterValue(e.target.value)}
               type="text"
               placeholder="Filtro por nombre..."
             />
