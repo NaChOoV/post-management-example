@@ -3,8 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configValidationSchema } from 'config/config.schema';
 import { PostModule } from './post/post.module';
-import { join } from 'path';
-import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -20,7 +18,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
         return {
           ssl: isProduction,
           extra: {
-            ssl: isProduction ? { rejectUnautorized: false } : null,
+            ssl: isProduction ? { rejectUnauthorized: false } : false,
           },
           type: 'postgres',
           autoLoadEntities: true,
@@ -34,10 +32,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       },
     }),
     PostModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
-      exclude: ['api'],
-    }),
   ],
   controllers: [],
   providers: [],
